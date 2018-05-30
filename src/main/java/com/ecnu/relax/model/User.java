@@ -19,7 +19,7 @@ public class User {
 
     private Double relaxDegree;
 
-    public User() {
+    public User(){
         this.userId = 0;
         this.nickname = "1";
         this.phone = "1";
@@ -29,6 +29,7 @@ public class User {
         this.remainder = 0.0;
         this.portrait = "1";
         this.relaxDegree = 80.0;
+
     }
 
     public User(String nickname,String realname,String phone,String pwd) {
@@ -41,6 +42,7 @@ public class User {
         this.portrait = "1";
         this.relaxDegree = 80.0;
     }
+
 
     public Integer getUserId() {
         return userId;

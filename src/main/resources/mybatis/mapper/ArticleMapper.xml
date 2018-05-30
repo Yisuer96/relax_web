@@ -11,7 +11,7 @@
   <sql id="Base_Column_List" >
     article_id, specialist_id, publish_time, title, content
   </sql>
-  <insert id="insertSelective" parameterType="com.ecnu.relax.model.Article" >
+  <insert id="insertSelective" parameterType="com.ecnu.relax.model.Article" useGeneratedKeys="true"  keyProperty="articleId">
     insert into article
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="articleId != null" >

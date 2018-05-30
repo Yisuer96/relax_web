@@ -19,12 +19,13 @@ public interface OrderMapper {
         "specialist_id, type_id, ",
         "order_status, consulting_way, ",
         "publish_time, complete_time, ",
-        "sum, location, description)",
+        "sum, location, description, consulting_start_time, consulting_finish_time)",
         "values (#{orderId,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, ",
         "#{specialistId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, ",
         "#{orderStatus,jdbcType=INTEGER}, #{consultingWay,jdbcType=INTEGER}, ",
         "#{publishTime,jdbcType=TIMESTAMP}, #{completeTime,jdbcType=TIMESTAMP}, ",
-        "#{sum,jdbcType=DOUBLE}, #{location,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})"
+        "#{sum,jdbcType=DOUBLE}, #{location,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, ",
+        "#{consultingStartTime,jdbcType=TIMESTAMP},#{consultingFinishTime,jdbcType=TIMESTAMP},)"
     })
     int insert(Order record);
 
@@ -33,7 +34,7 @@ public interface OrderMapper {
     @Select({
         "select",
         "order_id, patient_id, specialist_id, type_id, order_status, consulting_way, ",
-        "publish_time, complete_time, sum, location, description",
+        "publish_time, complete_time, sum, location, description, consulting_start_time, consulting_finish_time",
         "from order",
         "where order_id = #{orderId,jdbcType=INTEGER}"
     })
@@ -54,6 +55,8 @@ public interface OrderMapper {
           "sum = #{sum,jdbcType=DOUBLE},",
           "location = #{location,jdbcType=VARCHAR},",
           "description = #{description,jdbcType=VARCHAR}",
+          "consulting_start_time = #{consultingStartTime,jdbcType=TIMESTAMP}",
+          "consulting_finish_time =#{consultingFinishTime,jdbcType=TIMESTAMP}",
         "where order_id = #{orderId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Order record);

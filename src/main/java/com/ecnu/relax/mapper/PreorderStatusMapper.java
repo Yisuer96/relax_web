@@ -18,9 +18,9 @@ public interface PreorderStatusMapper {
 
     @Insert({
         "insert into preorder_status (timeslot_id, specialist_id, ",
-        "status)",
+        "is_ordered, is_free, day)",
         "values (#{timeslotId,jdbcType=INTEGER}, #{specialistId,jdbcType=INTEGER}, ",
-        "#{status,jdbcType=INTEGER})"
+        "#{isOdered,jdbcType=INTEGER}, #{isFree,jdbcType=INTEGER}, #{day,jdbcType=INTEGER})"
     })
     int insert(PreorderStatus record);
 
@@ -28,7 +28,7 @@ public interface PreorderStatusMapper {
 
     @Select({
         "select",
-        "timeslot_id, specialist_id, status",
+        "timeslot_id, specialist_id, is_ordered, is_free, day",
         "from preorder_status",
         "where timeslot_id = #{timeslotId,jdbcType=INTEGER}",
           "and specialist_id = #{specialistId,jdbcType=INTEGER}"
@@ -40,7 +40,7 @@ public interface PreorderStatusMapper {
 
     @Update({
         "update preorder_status",
-        "set status = #{status,jdbcType=INTEGER}",
+        "set is_ordered = #{isOdered,jdbcType=INTEGER}, is_free = #{isFree,jdbcType=INTEGER}, day = #{day,jdbcType=INTEGER}",
         "where timeslot_id = #{timeslotId,jdbcType=INTEGER}",
           "and specialist_id = #{specialistId,jdbcType=INTEGER}"
     })

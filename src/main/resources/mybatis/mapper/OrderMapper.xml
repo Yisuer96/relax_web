@@ -13,12 +13,14 @@
     <result column="sum" property="sum" jdbcType="DOUBLE" />
     <result column="location" property="location" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="consulting_start_time" property="consultingStartTime" jdbcType="TIMESTAMP"/>
+    <result column="consulting_finish_time" property="consultingFinishTime" jdbcType="TIMESTAMP"/>
   </resultMap>
   <sql id="Base_Column_List" >
     order_id, patient_id, specialist_id, type_id, order_status, consulting_way, publish_time, 
-    complete_time, sum, location, description
+    complete_time, sum, location, description, consulting_start_time, consulting_finish_time
   </sql>
-  <insert id="insertSelective" parameterType="com.ecnu.relax.model.Order" >
+  <insert id="insertSelective" parameterType="com.ecnu.relax.model.Order" useGeneratedKeys="true"  keyProperty="orderId">
     insert into order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
@@ -54,6 +56,13 @@
       <if test="description != null" >
         description,
       </if>
+      <if test="consultingStartTime != null" >
+        consulting_start_time,
+      </if>
+      <if test="consultingFinishTime != null" >
+        consulting_finish_time,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
@@ -89,6 +98,12 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
+      <if test="consultingStartTime, != null" >
+        #{consultingStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consultingFinishTime, != null" >
+        #{consultingFinishTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.ecnu.relax.model.Order" >
@@ -123,6 +138,12 @@
       </if>
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="consultingStartTime, != null" >
+        consulting_start_time = #{consultingStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consultingFinishTime, != null" >
+        consulting_finish_time = #{consultingFinishTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}

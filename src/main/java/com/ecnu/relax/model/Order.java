@@ -25,6 +25,10 @@ public class Order {
 
     private String description;
 
+    private Date consultingStartTime;
+
+    private Date consultingFinishTime;
+
     public Integer getOrderId() {
         return orderId;
     }
@@ -111,5 +115,21 @@ public class Order {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public Date getConsultingStartTime() {
+        return consultingStartTime;
+    }
+
+    public void setConsultingStartTime(Date consultingStartTime) {
+        this.consultingStartTime = consultingStartTime;
+    }
+
+    public Date getConsultingFinishTime() {
+        return consultingFinishTime;
+    }
+
+    public void setConsultingFinishTime(Date consultingFinishTime) {
+        this.consultingFinishTime = consultingFinishTime;
     }
 }

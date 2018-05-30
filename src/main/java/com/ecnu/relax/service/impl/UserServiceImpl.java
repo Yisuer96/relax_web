@@ -44,3 +44,4 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         return result;
     }
 }
+
