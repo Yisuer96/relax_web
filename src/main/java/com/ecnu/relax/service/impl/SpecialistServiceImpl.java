@@ -43,7 +43,7 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
                     specialists = specialistMapper.getRatingDescSpecialists();
                     break;
                 case 1:
-                    //specialists = specialistMapper.getOrdersNumDescDescSpecialists();
+                    specialists = specialistMapper.getOrdersNumDescDescSpecialists();
                     break;
                 case 2:
                     specialists = specialistMapper.getEmployLengthDescSpecialists();
@@ -58,7 +58,7 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
                     specialists = specialistMapper.getRatingDescSpecialistsByType(type);
                     break;
                 case 1:
-                    //specialists = specialistMapper.getOrdersNumDescDescSpecialistsByType(type);
+                    specialists = specialistMapper.getOrdersNumDescDescSpecialistsByType(type);
                     break;
                 case 2:
                     specialists = specialistMapper.getEmployLengthDescSpecialistsByType(type);

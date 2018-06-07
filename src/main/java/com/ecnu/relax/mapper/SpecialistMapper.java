@@ -60,16 +60,16 @@ public interface SpecialistMapper {
     })
     List<Specialist> getRatingDescSpecialistsByType(Integer typeId);
 
-    /*@Select({
+    @Select({
             "select *",
             "from specialist",
             "where specialist_id in(",
             "select specialist_type.specialist_id",
             "from specialist_type",
             "where type_id = #{typeId,jdbcType=INTEGER})",
-            "order by rating desc"
+            "order by order_num desc"
     })
-    List<Specialist> getOrdersNumDescDescSpecialistsByType(Integer typeId);*/
+    List<Specialist> getOrdersNumDescDescSpecialistsByType(Integer typeId);
 
     @Select({
             "select *",
@@ -89,12 +89,12 @@ public interface SpecialistMapper {
     })
     List<Specialist> getRatingDescSpecialists();
 
-    /*@Select({
+    @Select({
             "select *",
             "from specialist",
-            "order by rating desc"
+            "order by order_num desc"
     })
-    List<Specialist> getOrdersNumDescDescSpecialists();*/
+    List<Specialist> getOrdersNumDescDescSpecialists();
 
     @Select({
             "select *",
