@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 public interface SpecialistMapper {
     @Delete({
         "delete from specialist",
@@ -46,4 +48,58 @@ public interface SpecialistMapper {
         "where specialist_id = #{specialistId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Specialist record);
+
+    @Select({
+            "select *",
+            "from specialist",
+            "where specialist_id in(",
+                "select specialist_type.specialist_id",
+                "from specialist_type",
+                "where type_id = #{typeId,jdbcType=INTEGER})",
+            "order by rating desc"
+    })
+    List<Specialist> getRatingDescSpecialistsByType(Integer typeId);
+
+    /*@Select({
+            "select *",
+            "from specialist",
+            "where specialist_id in(",
+            "select specialist_type.specialist_id",
+            "from specialist_type",
+            "where type_id = #{typeId,jdbcType=INTEGER})",
+            "order by rating desc"
+    })
+    List<Specialist> getOrdersNumDescDescSpecialistsByType(Integer typeId);*/
+
+    @Select({
+            "select *",
+            "from specialist",
+            "where specialist_id in(",
+            "select specialist_type.specialist_id",
+            "from specialist_type",
+            "where type_id = #{typeId,jdbcType=INTEGER})",
+            "order by employ_length desc"
+    })
+    List<Specialist> getEmployLengthDescSpecialistsByType(Integer typeId);
+
+    @Select({
+            "select *",
+            "from specialist",
+            "order by rating desc"
+    })
+    List<Specialist> getRatingDescSpecialists();
+
+    /*@Select({
+            "select *",
+            "from specialist",
+            "order by rating desc"
+    })
+    List<Specialist> getOrdersNumDescDescSpecialists();*/
+
+    @Select({
+            "select *",
+            "from specialist",
+            "order by employ_length desc"
+    })
+    List<Specialist> getEmployLengthDescSpecialists();
 }
