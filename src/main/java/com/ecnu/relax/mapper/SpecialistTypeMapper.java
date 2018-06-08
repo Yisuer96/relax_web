@@ -3,6 +3,9 @@ package com.ecnu.relax.mapper;
 import com.ecnu.relax.model.SpecialistTypeKey;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface SpecialistTypeMapper {
     @Delete({
@@ -19,4 +22,11 @@ public interface SpecialistTypeMapper {
     int insert(SpecialistTypeKey record);
 
     int insertSelective(SpecialistTypeKey record);
+
+    @Select({
+        "select type_id",
+        "from specialist_type",
+        "where specialist_id=#{specialistId,jdbcType=INTEGER}"
+    })
+    List<Integer> selectBySpecialistId(Integer specialistId);
 }
