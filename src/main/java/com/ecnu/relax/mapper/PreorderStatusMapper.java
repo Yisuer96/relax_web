@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 public interface PreorderStatusMapper {
     @Delete({
         "delete from preorder_status",
@@ -48,4 +50,12 @@ public interface PreorderStatusMapper {
             "and day = #{day,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(PreorderStatus record);
+
+    @Select({
+            "select *",
+            "from preorder_status",
+            "where specialist_id = #{specialistId,jdbcType=INTEGER}",
+            "order by day,timeslot_id"
+    })
+    List<PreorderStatus> getPreOrderTableBySpecialistId(Integer specialistId);
 }

@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 public interface CommentMapper {
     @Delete({
         "delete from comment",
@@ -46,4 +48,14 @@ public interface CommentMapper {
         "where comment_id = #{commentId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Comment record);
+
+    @Select({
+        "select *",
+        "from `comment`",
+        "where order_id in(",
+            "select order_id",
+            "from `order`",
+            "where specialist_id = #{specialistId,jdbcType=INTEGER})"
+    })
+    List<Comment> selectCommentBySpecialistId(Integer specialistId);
 }
