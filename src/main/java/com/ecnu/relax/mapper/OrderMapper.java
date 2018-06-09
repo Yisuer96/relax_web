@@ -35,7 +35,7 @@ public interface OrderMapper {
         "select",
         "order_id, patient_id, specialist_id, type_id, order_status, consulting_way, ",
         "publish_time, complete_time, sum, location, description, consulting_start_time, consulting_finish_time",
-        "from order",
+        "from `order`",
         "where order_id = #{orderId,jdbcType=INTEGER}"
     })
     @ResultMap("BaseResultMap")

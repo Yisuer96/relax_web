@@ -1,5 +1,7 @@
 package com.ecnu.relax.dto;
 
+import com.ecnu.relax.model.Comment;
+import com.ecnu.relax.model.PreorderStatus;
 import com.ecnu.relax.model.Type;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,10 @@ public class SpecialistDto {
     private String introduction;
 
     private List<Type> typeBeanList;
+
+    private List<CommentDto> commentBeanList;
+
+    private List<PreorderStatus> preOrderStatusBeanList;
 
 
 }

@@ -1,13 +1,9 @@
 package com.ecnu.relax.service.impl;
 
+import com.ecnu.relax.dto.CommentDto;
 import com.ecnu.relax.dto.SpecialistDto;
-import com.ecnu.relax.mapper.SpecialistMapper;
-import com.ecnu.relax.mapper.SpecialistTypeMapper;
-import com.ecnu.relax.mapper.TypeMapper;
-import com.ecnu.relax.mapper.UserMapper;
-import com.ecnu.relax.model.Specialist;
-import com.ecnu.relax.model.Type;
-import com.ecnu.relax.model.User;
+import com.ecnu.relax.mapper.*;
+import com.ecnu.relax.model.*;
 import com.ecnu.relax.service.ISpecialistService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +26,15 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
 
     @Autowired
     TypeMapper typeMapper;
+
+    @Autowired
+    PreorderStatusMapper preorderStatusMapper;
+
+    @Autowired
+    CommentMapper commentMapper;
+
+    @Autowired
+    OrderMapper orderMapper;
 
 
 
@@ -71,7 +76,30 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
         return specialistDtos;
     }
 
-    private SpecialistDto parse(Specialist specialist) {
+    @Override
+    public List<PreorderStatus> getPreOrderTableBySpecialistId(int specialistId) {
+        List<PreorderStatus> preOrderStatusList = new ArrayList<>();
+        preOrderStatusList = preorderStatusMapper.getPreOrderTableBySpecialistId(specialistId);
+        return preOrderStatusList;
+    }
+
+    @Override
+    public List<CommentDto> getUserCommentBySpecialistId(int specialistId) {
+        List<Comment> comments = commentMapper.selectCommentBySpecialistId(specialistId);
+        List<CommentDto> commentDtos = comments.stream().map(this::parse).collect(Collectors.toList());
+        return commentDtos;
+    }
+
+    @Override
+    public SpecialistDto getSpecialistBeanBySpecialistId(int specialistId) {
+        Specialist specialist = specialistMapper.selectByPrimaryKey(specialistId);
+        SpecialistDto specialistDto = parse(specialist);
+        specialistDto.setPreOrderStatusBeanList(getPreOrderTableBySpecialistId(specialistId));
+        specialistDto.setCommentBeanList(getUserCommentBySpecialistId(specialistId));
+        return specialistDto;
+    }
+
+    public SpecialistDto parse(Specialist specialist) {
         SpecialistDto specialistDto = new SpecialistDto();
         try {
             BeanUtils.copyProperties(specialistDto, specialist);
@@ -91,5 +119,21 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
             e.printStackTrace();
         }
         return specialistDto;
+    }
+
+    public CommentDto parse(Comment comment) {
+        CommentDto commentDto = new CommentDto();
+        try {
+            BeanUtils.copyProperties(commentDto, comment);
+            int orderId = comment.getOrderId();
+            int userId = orderMapper.selectByPrimaryKey(orderId).getPatientId();
+            String userName = userMapper.selectByPrimaryKey(userId).getNickname();
+            commentDto.setCommenterName(userName);
+        } catch (NullPointerException np) {
+            System.out.println("Comments don't exist.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return commentDto;
     }
 }
