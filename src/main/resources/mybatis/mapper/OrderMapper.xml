@@ -21,7 +21,7 @@
     complete_time, sum, location, description, consulting_start_time, consulting_finish_time
   </sql>
   <insert id="insertSelective" parameterType="com.ecnu.relax.model.Order" useGeneratedKeys="true"  keyProperty="orderId">
-    insert into order
+    insert into `order`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
         order_id,
@@ -98,10 +98,10 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="consultingStartTime, != null" >
+      <if test="consultingStartTime != null" >
         #{consultingStartTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="consultingFinishTime, != null" >
+      <if test="consultingFinishTime != null" >
         #{consultingFinishTime,jdbcType=TIMESTAMP},
       </if>
     </trim>

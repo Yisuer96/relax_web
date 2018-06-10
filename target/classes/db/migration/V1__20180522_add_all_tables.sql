@@ -54,28 +54,11 @@ CREATE TABLE `order` (
   `sum` double DEFAULT 0,
   `location` varchar(255) DEFAULT '',
   `description` varchar(255) DEFAULT '',
+  `consulting_start_time`  datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `consulting_finish_time`  datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Table structure for order_timeslot
--- ----------------------------
-DROP TABLE IF EXISTS `order_timeslot`;
-CREATE TABLE `order_timeslot` (
-  `order_id` int(11) NOT NULL,
-  `timeslot_id` int(11) NOT NULL,
-  PRIMARY KEY (`order_id`,`timeslot_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for order_type
--- ----------------------------
-DROP TABLE IF EXISTS `order_type`;
-CREATE TABLE `order_type` (
-  `order_id` int(11) NOT NULL,
-  `type_id` int(11) NOT NULL,
-  PRIMARY KEY (`order_id`,`type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for post
@@ -111,7 +94,9 @@ DROP TABLE IF EXISTS `preorder_status`;
 CREATE TABLE `preorder_status` (
   `timeslot_id` int(11) NOT NULL,
   `specialist_id` int(11) NOT NULL,
-  `status` int(11) DEFAULT 0,
+  `is_ordered` tinyint(11) DEFAULT 0,
+  `is_free`  tinyint(11) DEFAULT 1,
+  `day`  int(11) NOT NULL,
   PRIMARY KEY (`timeslot_id`,`specialist_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -174,5 +159,3 @@ CREATE TABLE `user` (
   `relax_degree` double DEFAULT 80,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-

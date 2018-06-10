@@ -13,6 +13,14 @@ public class Comment {
 
     private Double rating;
 
+    public Comment(Integer orderId,String content,Double rating)
+    {
+        this.orderId = orderId;
+        commentTime = new Date();
+        this.content = content;
+        this.rating = rating;
+    }
+
     public Integer getCommentId() {
         return commentId;
     }

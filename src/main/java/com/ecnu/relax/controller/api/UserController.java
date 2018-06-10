@@ -1,5 +1,5 @@
 package com.ecnu.relax.controller.api;
-
+import com.ecnu.relax.dto.BaseJson;
 import com.ecnu.relax.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -54,6 +56,13 @@ public class UserController extends APIBaseController{
                 break;
         }
         return registerResult;
+    }
+
+    @RequestMapping(value="/getTypes", method = RequestMethod.GET)
+    public List<Integer> getTypes(@RequestParam("specialistId")String specialistId){
+        List<Integer> result = new ArrayList<>();
+        result = userService.getTypesBySpecialistId(specialistId);
+        return result;
     }
 
 }

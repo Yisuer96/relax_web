@@ -12,7 +12,7 @@
   <sql id="Base_Column_List" >
     article_reply_id, specialist_id, article_id, re-reply_id, reply_time, content
   </sql>
-  <insert id="insertSelective" parameterType="com.ecnu.relax.model.ArticleReply" >
+  <insert id="insertSelective" parameterType="com.ecnu.relax.model.ArticleReply" useGeneratedKeys="true"  keyProperty="articleReplyId">
     insert into article_reply
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="articleReplyId != null" >
