@@ -1,6 +1,7 @@
 package com.ecnu.relax.controller.api;
 
 import com.ecnu.relax.dto.SpecialistDto;
+import com.ecnu.relax.model.PreorderStatus;
 import com.ecnu.relax.service.ISpecialistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,14 @@ public class SpecialistController extends APIBaseController{
         List<SpecialistDto> specialistDtoList = new ArrayList<>();
         specialistDtoList = specialistService.getSortedSpecialistsByType(type,sort);
         return specialistDtoList;
+
+    }
+
+    @RequestMapping(value="/getSpecialistBeanBySpecialistId", method = RequestMethod.GET)
+    public SpecialistDto getPreOrderTableBySpecialistId(@RequestParam("specialistId")Integer specialistId){
+        SpecialistDto specialistDto = specialistService.getSpecialistBeanBySpecialistId(specialistId);
+        //List<PreorderStatus> preorderStatusList = specialistService.getPreOrderTableBySpecialistId(specialistId);
+        return specialistDto;
 
     }
 

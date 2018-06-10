@@ -8,11 +8,14 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 public interface PreorderStatusMapper {
     @Delete({
         "delete from preorder_status",
         "where timeslot_id = #{timeslotId,jdbcType=INTEGER}",
-          "and specialist_id = #{specialistId,jdbcType=INTEGER}"
+          "and specialist_id = #{specialistId,jdbcType=INTEGER}",
+            "and day = #{day,jdbcType=INTEGER}"
     })
     int deleteByPrimaryKey(PreorderStatusKey key);
 
@@ -20,7 +23,7 @@ public interface PreorderStatusMapper {
         "insert into preorder_status (timeslot_id, specialist_id, ",
         "is_ordered, is_free, day)",
         "values (#{timeslotId,jdbcType=INTEGER}, #{specialistId,jdbcType=INTEGER}, ",
-        "#{isOdered,jdbcType=INTEGER}, #{isFree,jdbcType=INTEGER}, #{day,jdbcType=INTEGER})"
+        "#{isOrdered,jdbcType=INTEGER}, #{isFree,jdbcType=INTEGER}, #{day,jdbcType=INTEGER})"
     })
     int insert(PreorderStatus record);
 
@@ -31,7 +34,8 @@ public interface PreorderStatusMapper {
         "timeslot_id, specialist_id, is_ordered, is_free, day",
         "from preorder_status",
         "where timeslot_id = #{timeslotId,jdbcType=INTEGER}",
-          "and specialist_id = #{specialistId,jdbcType=INTEGER}"
+          "and specialist_id = #{specialistId,jdbcType=INTEGER}",
+            "and day = #{day,jdbcType=INTEGER}"
     })
     @ResultMap("BaseResultMap")
     PreorderStatus selectByPrimaryKey(PreorderStatusKey key);
@@ -40,9 +44,18 @@ public interface PreorderStatusMapper {
 
     @Update({
         "update preorder_status",
-        "set is_ordered = #{isOdered,jdbcType=INTEGER}, is_free = #{isFree,jdbcType=INTEGER}, day = #{day,jdbcType=INTEGER}",
+        "set is_ordered = #{isOrdered,jdbcType=INTEGER}, is_free = #{isFree,jdbcType=INTEGER}",
         "where timeslot_id = #{timeslotId,jdbcType=INTEGER}",
-          "and specialist_id = #{specialistId,jdbcType=INTEGER}"
+          "and specialist_id = #{specialistId,jdbcType=INTEGER}",
+            "and day = #{day,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(PreorderStatus record);
+
+    @Select({
+            "select *",
+            "from preorder_status",
+            "where specialist_id = #{specialistId,jdbcType=INTEGER}",
+            "order by day,timeslot_id"
+    })
+    List<PreorderStatus> getPreOrderTableBySpecialistId(Integer specialistId);
 }

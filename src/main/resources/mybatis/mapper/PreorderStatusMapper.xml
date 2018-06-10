@@ -4,12 +4,12 @@
   <resultMap id="BaseResultMap" type="com.ecnu.relax.model.PreorderStatus" >
     <id column="timeslot_id" property="timeslotId" jdbcType="INTEGER" />
     <id column="specialist_id" property="specialistId" jdbcType="INTEGER" />
+    <id column="day" property="day" jdbcType="INTEGER" />
     <result column="is_ordered" property="isOrdered" jdbcType="INTEGER" />
     <result column="is_free" property="isFree" jdbcType="INTEGER" />
-    <result column="day" property="day" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    timeslot_id, specialist_id, status, is_ordered, is_free, day
+    timeslot_id, specialist_id, is_ordered, is_free, day
   </sql>
   <insert id="insertSelective" parameterType="com.ecnu.relax.model.PreorderStatus" >
     insert into preorder_status
@@ -38,7 +38,7 @@
         #{specialistId,jdbcType=INTEGER},
       </if>
       <if test="isOrdered != null" >
-        #{isOdered,jdbcType=INTEGER},
+        #{isOrdered,jdbcType=INTEGER},
       </if>
       <if test="isFree != null" >
         #{isFree,jdbcType=INTEGER},
@@ -52,12 +52,12 @@
     update preorder_status
     <set >
       <if test="status != null" >
-         is_ordered = #{isOdered,jdbcType=INTEGER},
+         is_ordered = #{isOrdered,jdbcType=INTEGER},
          is_free = #{isFree,jdbcType=INTEGER},
-         day = #{day,jdbcType=INTEGER},
       </if>
     </set>
     where timeslot_id = #{timeslotId,jdbcType=INTEGER}
       and specialist_id = #{specialistId,jdbcType=INTEGER}
+      and day = #{day,jdbcType=INTEGER}
   </update>
 </mapper>

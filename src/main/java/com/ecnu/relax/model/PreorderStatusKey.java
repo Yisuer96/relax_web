@@ -5,6 +5,8 @@ public class PreorderStatusKey {
 
     private Integer specialistId;
 
+    private Integer day;
+
     public Integer getTimeslotId() {
         return timeslotId;
     }
@@ -19,5 +21,13 @@ public class PreorderStatusKey {
 
     public void setSpecialistId(Integer specialistId) {
         this.specialistId = specialistId;
+    }
+
+    public Integer getDay() {
+        return day;
+    }
+
+    public void setDay(Integer day) {
+        this.day = day;
     }
 }

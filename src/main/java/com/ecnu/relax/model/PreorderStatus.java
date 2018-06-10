@@ -1,18 +1,16 @@
 package com.ecnu.relax.model;
 
 public class PreorderStatus extends PreorderStatusKey {
-    private Integer isOdered;
+    private Integer isOrdered;
 
     private Integer isFree;
 
-    private Integer day;
-
-    public Integer getIsOdered() {
-        return isOdered;
+    public Integer getIsOrdered() {
+        return isOrdered;
     }
 
-    public void setIsOdered(Integer isOdered) {
-        this.isOdered = isOdered;
+    public void setIsOrdered(Integer isOrdered) {
+        this.isOrdered = isOrdered;
     }
 
     public Integer getIsFree() {
@@ -23,11 +21,5 @@ public class PreorderStatus extends PreorderStatusKey {
         this.isFree = isFree;
     }
 
-    public Integer getDay() {
-        return day;
-    }
 
-    public void setDay(Integer day) {
-        this.day = day;
-    }
 }
