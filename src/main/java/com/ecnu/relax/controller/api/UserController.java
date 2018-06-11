@@ -1,5 +1,6 @@
 package com.ecnu.relax.controller.api;
 
+import com.ecnu.relax.model.User;
 import com.ecnu.relax.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +55,17 @@ public class UserController extends APIBaseController{
                 break;
         }
         return registerResult;
+    }
+
+    @RequestMapping(value="/getCurrentUserInfo", method = RequestMethod.GET)
+    public User getCurrentUserInfo(@RequestParam("userId")Integer userId){
+        User user = userService.getCurrentUserInfo(userId);
+        return user;
+    }
+
+    @RequestMapping(value="/editUserPassword", method = RequestMethod.GET)
+    public int editUserPassword(@RequestParam("userId")Integer userId,@RequestParam("curPwd")String curPwd,@RequestParam("newPwd")String newPwd){
+        return userService.editUserPassword(userId,curPwd,newPwd);
     }
 
 }

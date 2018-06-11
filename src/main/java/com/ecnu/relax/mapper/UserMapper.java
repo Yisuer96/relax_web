@@ -65,4 +65,11 @@ public interface UserMapper {
     })
     @ResultMap("BaseResultMap")
     User selectByPhone(String phone);
+
+    @Update({
+            "update user",
+            "set identity = #{identity,jdbcType=INTEGER},",
+            "where user_id = #{userId,jdbcType=INTEGER}"
+    })
+    int updateIdentityByUserId(Integer identity,Integer userId);
 }

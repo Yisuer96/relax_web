@@ -43,5 +43,23 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         }
         return result;
     }
+
+    @Override
+    public User getCurrentUserInfo(int userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        return user;
+    }
+
+    @Override
+    public int editUserPassword(int userId,String curPwd,String newPwd){
+        User user = userMapper.selectByPrimaryKey(userId);
+        int result = 1;
+        if(user.getPassword().equals(curPwd)) {
+            user.setPassword(newPwd);
+            userMapper.updateByPrimaryKey(user);
+            result = 0;
+        }
+        return result;
+    }
 }
 
