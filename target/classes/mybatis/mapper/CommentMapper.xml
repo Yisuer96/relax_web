@@ -11,7 +11,7 @@
   <sql id="Base_Column_List" >
     comment_id, order_id, comment_time, content, rating
   </sql>
-  <insert id="insertSelective" parameterType="com.ecnu.relax.model.Comment" >
+  <insert id="insertSelective" parameterType="com.ecnu.relax.model.Comment" useGeneratedKeys="true"  keyProperty="commentId">
     insert into comment
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="commentId != null" >

@@ -15,8 +15,7 @@
   <sql id="Base_Column_List" >
     user_id, nickname, phone, password, real_name, identity, remainder, portrait, relax_degree
   </sql>
-  <insert id="insertSelective" parameterType="com.ecnu.relax.model.User" useGeneratedKeys="true"
-          keyProperty="userId">
+  <insert id="insertSelective" parameterType="com.ecnu.relax.model.User" useGeneratedKeys="true"  keyProperty="userId">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >

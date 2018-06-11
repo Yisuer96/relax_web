@@ -58,4 +58,14 @@ public interface CommentMapper {
             "where specialist_id = #{specialistId,jdbcType=INTEGER})"
     })
     List<Comment> selectCommentBySpecialistId(Integer specialistId);
+
+    @Select({
+            "select *",
+            "from `comment`",
+            "where order_id in(",
+            "select order_id",
+            "from `order`",
+            "where patient_id = #{patientId,jdbcType=INTEGER})"
+    })
+    List<Comment> selectCommentByUserId(Integer patientId);
 }

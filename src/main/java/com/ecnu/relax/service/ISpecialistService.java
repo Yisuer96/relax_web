@@ -5,6 +5,7 @@ import com.ecnu.relax.dto.SpecialistDto;
 import com.ecnu.relax.model.PreorderStatus;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ISpecialistService extends BaseService {
     List<SpecialistDto> getSortedSpecialistsByType(int type, int sort);
@@ -14,4 +15,6 @@ public interface ISpecialistService extends BaseService {
     List<CommentDto> getUserCommentBySpecialistId(int specialistId);
 
     SpecialistDto getSpecialistBeanBySpecialistId(int specialistId);
+
+    int insertSpecialist(Map<String,Object> specialistDto);
 }

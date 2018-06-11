@@ -1,5 +1,8 @@
 package com.ecnu.relax.model;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class Specialist {
     private Integer specialistId;
 
@@ -10,6 +13,13 @@ public class Specialist {
     private Integer employLength;
 
     private String introduction;
+
+    public Specialist(Integer specialistId, String qualification, Integer employLength, String introduction) {
+        this.specialistId = specialistId;
+        this.qualification = qualification;
+        this.employLength = employLength;
+        this.introduction = introduction;
+    }
 
     public Integer getSpecialistId() {
         return specialistId;

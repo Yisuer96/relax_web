@@ -1,7 +1,10 @@
 package com.ecnu.relax.model;
 
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
+@NoArgsConstructor
 public class Comment {
     private Integer commentId;
 
@@ -12,6 +15,14 @@ public class Comment {
     private String content;
 
     private Double rating;
+
+    public Comment(Integer orderId,String content,Double rating)
+    {
+        this.orderId = orderId;
+        commentTime = new Date();
+        this.content = content;
+        this.rating = rating;
+    }
 
     public Integer getCommentId() {
         return commentId;

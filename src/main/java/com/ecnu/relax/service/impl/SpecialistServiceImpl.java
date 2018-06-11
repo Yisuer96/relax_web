@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -97,6 +98,23 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
         specialistDto.setPreOrderStatusBeanList(getPreOrderTableBySpecialistId(specialistId));
         specialistDto.setCommentBeanList(getUserCommentBySpecialistId(specialistId));
         return specialistDto;
+    }
+
+    @Override
+    public int insertSpecialist(Map<String,Object> resume) {
+        int userId = Integer.valueOf(resume.get("userId").toString());
+        String realName = resume.get("name").toString();
+        String qualification = resume.get("qualification").toString();
+        int employeeLength = Integer.valueOf(resume.get("employeeLength").toString());
+        String intro = resume.get("introduction").toString();
+        Specialist specialist = new Specialist(userId,qualification,employeeLength,intro);
+        User user = userMapper.selectByPrimaryKey(userId);
+        user.setIdentity(1);
+        userMapper.updateByPrimaryKey(user);
+        int result = 0;
+        if(specialistMapper.selectByPrimaryKey(userId)==null)
+            result = specialistMapper.insertSelective(specialist);
+        return result;
     }
 
     public SpecialistDto parse(Specialist specialist) {
