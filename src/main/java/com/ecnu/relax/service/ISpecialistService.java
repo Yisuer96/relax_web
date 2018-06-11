@@ -19,5 +19,4 @@ public interface ISpecialistService extends BaseService {
 
     int insertSpecialist(Map<String,Object> specialistDto);
 
-    int changePreOrderStatusBySpecialistId(int specialistId ,Date startTime,Date endTime,Integer isOrdered,Integer isFree);
 }

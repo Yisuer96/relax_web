@@ -3,15 +3,20 @@ package com.ecnu.relax.service.impl;
 import com.ecnu.relax.dto.OrderBean;
 import com.ecnu.relax.mapper.CommentMapper;
 import com.ecnu.relax.mapper.OrderMapper;
+import com.ecnu.relax.mapper.PreorderStatusMapper;
+import com.ecnu.relax.mapper.SpecialistTypeMapper;
 import com.ecnu.relax.model.Comment;
 import com.ecnu.relax.model.Order;
+import com.ecnu.relax.model.PreorderStatus;
 import com.ecnu.relax.service.IOrderService;
+import com.ecnu.relax.service.ISpecialistService;
 import org.apache.ibatis.session.RowBounds;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,11 +26,16 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
     OrderMapper orderMapper;
     @Autowired
     CommentMapper commentMapper;
+    @Autowired
+    PreorderStatusMapper preorderStatusMapper;
 
     @Override
     public Integer cancelOrderByOrderId(Integer orderId) {
         Integer result = orderMapper.changeStatusByPrimaryKey(orderId, 2);
-        return result;
+        int changeStatus = changePreOrderStatusBySpecialistId(getOrderDetailByOrderId(orderId).getSpecialistId(),
+                new Date(getOrderDetailByOrderId(orderId).getConsultingStartTime()),
+                new Date(getOrderDetailByOrderId(orderId).getConsultingFinishTime()),0,1);
+        return result * changeStatus;
     }
 
     @Override
@@ -109,6 +119,68 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
         order.setDescription(description);
         order.setConsultingStartTime(start);
         order.setConsultingFinishTime(end);
-        return orderMapper.insertSelective(order);
+        int changeStatus = changePreOrderStatusBySpecialistId(specialistId,
+                start, end,1,1);
+        return orderMapper.insertSelective(order) * changeStatus;
+    }
+
+    @Override
+    public int changePreOrderStatusBySpecialistId(int specialistId, Date startTime, Date endTime, Integer isOrdered, Integer isFree) {
+        Calendar start = Calendar.getInstance();
+        start.setTime(startTime);
+        Calendar end = Calendar.getInstance();
+        end.setTime(endTime);
+        List<PreorderStatus> records = new ArrayList<>();
+        PreorderStatus preorderStatus;
+        int temp = start.DAY_OF_WEEK - 1;
+        if (temp == 0)
+            temp = 7;
+        switch (start.HOUR_OF_DAY) {
+            case 10:
+                preorderStatus = new PreorderStatus();
+                preorderStatus.setTimeslotId(1);
+                records.add(preorderStatus);
+                break;
+            case 16:
+                preorderStatus = new PreorderStatus();
+                preorderStatus.setTimeslotId(5);
+                records.add(preorderStatus);
+                break;
+            case 19:
+                if (end.HOUR_OF_DAY == 20) {
+                    preorderStatus = new PreorderStatus();
+                    preorderStatus.setTimeslotId(6);
+                    records.add(preorderStatus);
+                    break;
+                } else {
+                    for (int i = 0; i < 2; i++) {
+                        preorderStatus = new PreorderStatus();
+                        preorderStatus.setTimeslotId(6 + i);
+                        records.add(preorderStatus);
+                    }
+                    break;
+                }
+            case 20:
+                preorderStatus = new PreorderStatus();
+                preorderStatus.setTimeslotId(7);
+                records.add(preorderStatus);
+                break;
+            default:
+                for (int i = 0; i < end.HOUR_OF_DAY - start.HOUR_OF_DAY; i++) {
+                    preorderStatus = new PreorderStatus();
+                    preorderStatus.setTimeslotId(start.HOUR_OF_DAY-11 + i);
+                    records.add(preorderStatus);
+                }
+        }
+        for(int i = 0;i<records.size();i++)
+        {
+            preorderStatus = records.get(i);
+            preorderStatus.setDay(temp);
+            preorderStatus.setSpecialistId(specialistId);
+            preorderStatus.setIsOrdered(isOrdered);
+            preorderStatus.setIsFree(isFree);
+            preorderStatusMapper.updateByPrimaryKey(preorderStatus);
+        }
+        return 1;
     }
 }

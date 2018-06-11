@@ -14,4 +14,5 @@ public interface IOrderService extends BaseService {
     Integer continueOrderByOrderId(Integer orderId);
     Integer submitCommentByOrder(Integer orderId,Double rating,String comment);
     Integer placeNewOrder(int userId, int specialistId, int typeId, double sum, String description, Date start, Date end);
+    public int changePreOrderStatusBySpecialistId(int specialistId, Date startTime, Date endTime, Integer isOrdered, Integer isFree);
 }
