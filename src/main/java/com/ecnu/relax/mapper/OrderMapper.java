@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 public interface OrderMapper {
     @Delete({
@@ -60,4 +63,34 @@ public interface OrderMapper {
         "where order_id = #{orderId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Order record);
+  /*<select id="getByNumber" resultType="com.ecnu.relax.model.Order">
+    select * from `order` where patient_id = #{userId,jdbcType=INTEGER}
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+  <select id="getByNumber1" resultType="com.ecnu.relax.model.Order">
+    select * from `order` where specialist_id = #{specialistId,jdbcType=INTEGER}
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>*/
+  @Select({
+          "select * ",
+          "from `order`",
+          "where patient_id = #{userId} order by publish_time desc"
+  })
+  @ResultMap("BaseResultMap")
+    List<Order> getByNumber (Integer userId, RowBounds rowBounds);
+
+    @Select({
+            "select * ",
+            "from `order`",
+            "where  specialist_id = #{specialistId} order by publish_time desc"
+    })
+    @ResultMap("BaseResultMap")
+    List<Order> getByNumber1 (Integer specialistId,RowBounds rowBounds);
+
+    @Update({
+            "update `order`",
+            "set order_status = #{arg1}",
+            "where order_id = #{arg0}"
+    })
+    int changeStatusByPrimaryKey(Integer orderId,Integer orderStatus);
 }

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecnu.relax.mapper.SchemaVersionMapper" >
+  <resultMap id="BaseResultMap" type="com.ecnu.relax.model.SchemaVersion" >
+    <id column="version" property="version" jdbcType="VARCHAR" />
+    <result column="version_rank" property="versionRank" jdbcType="INTEGER" />
+    <result column="installed_rank" property="installedRank" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="script" property="script" jdbcType="VARCHAR" />
+    <result column="checksum" property="checksum" jdbcType="INTEGER" />
+    <result column="installed_by" property="installedBy" jdbcType="VARCHAR" />
+    <result column="installed_on" property="installedOn" jdbcType="TIMESTAMP" />
+    <result column="execution_time" property="executionTime" jdbcType="INTEGER" />
+    <result column="success" property="success" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    version, version_rank, installed_rank, description, type, script, checksum, installed_by, 
+    installed_on, execution_time, success
+  </sql>
+  <insert id="insertSelective" parameterType="com.ecnu.relax.model.SchemaVersion" >
+    insert into schema_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="versionRank != null" >
+        version_rank,
+      </if>
+      <if test="installedRank != null" >
+        installed_rank,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="script != null" >
+        script,
+      </if>
+      <if test="checksum != null" >
+        checksum,
+      </if>
+      <if test="installedBy != null" >
+        installed_by,
+      </if>
+      <if test="installedOn != null" >
+        installed_on,
+      </if>
+      <if test="executionTime != null" >
+        execution_time,
+      </if>
+      <if test="success != null" >
+        success,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="versionRank != null" >
+        #{versionRank,jdbcType=INTEGER},
+      </if>
+      <if test="installedRank != null" >
+        #{installedRank,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="script != null" >
+        #{script,jdbcType=VARCHAR},
+      </if>
+      <if test="checksum != null" >
+        #{checksum,jdbcType=INTEGER},
+      </if>
+      <if test="installedBy != null" >
+        #{installedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="installedOn != null" >
+        #{installedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="executionTime != null" >
+        #{executionTime,jdbcType=INTEGER},
+      </if>
+      <if test="success != null" >
+        #{success,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecnu.relax.model.SchemaVersion" >
+    update schema_version
+    <set >
+      <if test="versionRank != null" >
+        version_rank = #{versionRank,jdbcType=INTEGER},
+      </if>
+      <if test="installedRank != null" >
+        installed_rank = #{installedRank,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="script != null" >
+        script = #{script,jdbcType=VARCHAR},
+      </if>
+      <if test="checksum != null" >
+        checksum = #{checksum,jdbcType=INTEGER},
+      </if>
+      <if test="installedBy != null" >
+        installed_by = #{installedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="installedOn != null" >
+        installed_on = #{installedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="executionTime != null" >
+        execution_time = #{executionTime,jdbcType=INTEGER},
+      </if>
+      <if test="success != null" >
+        success = #{success,jdbcType=BIT},
+      </if>
+    </set>
+    where version = #{version,jdbcType=VARCHAR}
+  </update>
+</mapper>
