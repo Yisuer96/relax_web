@@ -67,7 +67,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
         result = orderMapper.getByNumber(userId, new RowBounds(startNo, size));
         for (int i = 0; i < result.size(); i++) {
             if (result.get(i) != null) {
-                OrderBean temp = new OrderBean(result.get(i).getTypeId(), result.get(i).getOrderStatus(), result.get(i).getSum(), getCurrentUser(result.get(i).getSpecialistId()).getRealName());
+                OrderBean temp = getOrderDetailByOrderId(result.get(i).getOrderId());
                 resultOrders.add(temp);
             }
         }

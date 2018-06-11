@@ -4,6 +4,7 @@ import com.ecnu.relax.dto.CommentDto;
 import com.ecnu.relax.dto.SpecialistDto;
 import com.ecnu.relax.model.PreorderStatus;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,4 +18,6 @@ public interface ISpecialistService extends BaseService {
     SpecialistDto getSpecialistBeanBySpecialistId(int specialistId);
 
     int insertSpecialist(Map<String,Object> specialistDto);
+
+    int changePreOrderStatusBySpecialistId(int specialistId ,Date startTime,Date endTime,Integer isOrdered,Integer isFree);
 }
