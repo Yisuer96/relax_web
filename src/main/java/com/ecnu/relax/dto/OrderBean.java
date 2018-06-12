@@ -49,6 +49,7 @@ public class OrderBean {
     }
 
     public OrderBean(Order order,String pN,String sN,String sP){
+        orderId = order.getOrderId();
         pubishTime = order.getPublishTime().getTime();
         orderStatus = order.getOrderStatus();
         typeId = order.getTypeId();
