@@ -11,7 +11,7 @@
   <sql id="Base_Column_List" >
     post_id, user_id, publish_time, title, content
   </sql>
-  <insert id="insertSelective" parameterType="com.ecnu.relax.model.Post" >
+  <insert id="insertSelective" parameterType="com.ecnu.relax.model.Post" useGeneratedKeys="true"  keyProperty="postId">
     insert into post
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="postId != null" >

@@ -9,9 +9,10 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.Calendar.MONDAY;
 
 @Service
 public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialistService {
@@ -37,13 +38,12 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
     OrderMapper orderMapper;
 
 
-
     @Override
-    public List<SpecialistDto> getSortedSpecialistsByType(int type, int sort){
+    public List<SpecialistDto> getSortedSpecialistsByType(int type, int sort) {
         List<Specialist> specialists = new ArrayList<>();
         List<SpecialistDto> specialistDtos = new ArrayList<>();
-        if(type==0){
-            switch (sort){
+        if (type == 0) {
+            switch (sort) {
                 case 0:
                     specialists = specialistMapper.getRatingDescSpecialists();
                     break;
@@ -56,9 +56,8 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
                 default:
                     break;
             }
-        }
-        else{
-            switch (sort){
+        } else {
+            switch (sort) {
                 case 0:
                     specialists = specialistMapper.getRatingDescSpecialistsByType(type);
                     break;
@@ -99,6 +98,23 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
         return specialistDto;
     }
 
+    @Override
+    public int insertSpecialist(Map<String, Object> resume) {
+        int userId = Integer.valueOf(resume.get("userId").toString());
+        String realName = resume.get("name").toString();
+        String qualification = resume.get("qualification").toString();
+        int employeeLength = Integer.valueOf(resume.get("employeeLength").toString());
+        String intro = resume.get("introduction").toString();
+        Specialist specialist = new Specialist(userId, qualification, employeeLength, intro);
+        User user = userMapper.selectByPrimaryKey(userId);
+        user.setIdentity(1);
+        userMapper.updateByPrimaryKey(user);
+        int result = 0;
+        if (specialistMapper.selectByPrimaryKey(userId) == null)
+            result = specialistMapper.insertSelective(specialist);
+        return result;
+    }
+
     public SpecialistDto parse(Specialist specialist) {
         SpecialistDto specialistDto = new SpecialistDto();
         try {
@@ -109,7 +125,7 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
             specialistDto.setPortrait(user.getPortrait());
             List<Integer> typeIds = specialistTypeMapper.selectBySpecialistId(specialist.getSpecialistId());
             List<Type> types = new ArrayList<>();
-            for(Integer typeId:typeIds){
+            for (Integer typeId : typeIds) {
                 types.add(typeMapper.selectByPrimaryKey(typeId));
             }
             specialistDto.setTypeBeanList(types);
@@ -136,4 +152,5 @@ public class SpecialistServiceImpl extends BaseServiceImpl implements ISpecialis
         }
         return commentDto;
     }
+
 }

@@ -12,7 +12,7 @@
   <sql id="Base_Column_List" >
     post_reply_id, user_id, post_id, re-reply_id, reply_time, content
   </sql>
-  <insert id="insertSelective" parameterType="com.ecnu.relax.model.PostReply" >
+  <insert id="insertSelective" parameterType="com.ecnu.relax.model.PostReply" useGeneratedKeys="true"  keyProperty="postReplyId">
     insert into post_reply
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="postReplyId != null" >
