@@ -20,11 +20,11 @@ public class UserController extends APIBaseController{
     private IUserService userService;
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
-    public int login(@RequestParam("phone")String phone, @RequestParam("password") String password){
-        int loginResult = 0;
+    public User login(@RequestParam("phone")String phone, @RequestParam("password") String password){
         String message;
-        loginResult = userService.login(phone,password);
-        switch (loginResult){
+        User user = userService.login(phone,password);
+        int userId = user.getUserId();
+        switch (userId){
             case -1:
                 message = "没有该用户";
                 break;
@@ -34,11 +34,11 @@ public class UserController extends APIBaseController{
             default:
                 //登录成功
                 HttpSession session = request.getSession();
-                session.setAttribute("userId", loginResult);
+                session.setAttribute("userId", userId);
                 message = "登录成功";
                 break;
         }
-        return loginResult;
+        return user;
     }
 
     @RequestMapping(value="/register", method = RequestMethod.GET)

@@ -20,16 +20,10 @@ public class User {
     private Double relaxDegree;
 
     public User(){
-        this.userId = 0;
-        this.nickname = "1";
-        this.phone = "1";
-        this.password = "1";
-        this.realName = "1";
-        this.identity = 0;
-        this.remainder = 0.0;
-        this.portrait = "1";
-        this.relaxDegree = 80.0;
 
+    }
+    public User(int userId){
+        this.userId = userId;
     }
 
     public User(String nickname,String realname,String phone,String pwd) {

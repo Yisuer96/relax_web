@@ -20,20 +20,19 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     SpecialistTypeMapper specialistTypeMapper;
 
     @Override
-    public int login(String phone, String password) {
+    public User login(String phone, String password) {
         int result = 0;
         User user = userMapper.selectByPhone(phone);
         if (user == null) {
             //该用户不存在
-            result = -1;
+            user = new User(-1);
         } else if (!user.getPassword().equals(password)) {
             //学号和密码不匹配
-            result = 0;
+            user = new User(0);
         } else {
             //登录成功
-            result = user.getUserId();
         }
-        return result;
+        return user;
     }
 
     @Override

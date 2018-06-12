@@ -10,6 +10,7 @@ import com.ecnu.relax.model.Order;
 import com.ecnu.relax.model.PreorderStatus;
 import com.ecnu.relax.service.IOrderService;
 import com.ecnu.relax.service.ISpecialistService;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
         List<OrderBean> resultOrders = new ArrayList<>();
         List<Order> result = new ArrayList<>();
         result = orderMapper.getByNumber(userId, new RowBounds(startNo, size));
+
         for (int i = 0; i < result.size(); i++) {
             if (result.get(i) != null) {
                 OrderBean temp = getOrderDetailByOrderId(result.get(i).getOrderId());
