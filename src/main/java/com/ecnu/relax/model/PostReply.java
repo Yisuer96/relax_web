@@ -15,6 +15,17 @@ public class PostReply {
 
     private String content;
 
+    public PostReply() {
+    }
+
+    public PostReply(Integer userId, Integer postId, Integer reReplyId, Date replyTime, String content) {
+        this.userId = userId;
+        this.postId = postId;
+        this.reReplyId = reReplyId;
+        this.replyTime = replyTime;
+        this.content = content;
+    }
+
     public Integer getPostReplyId() {
         return postReplyId;
     }

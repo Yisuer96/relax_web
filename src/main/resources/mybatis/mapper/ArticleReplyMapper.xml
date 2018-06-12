@@ -5,12 +5,12 @@
     <id column="article_reply_id" property="articleReplyId" jdbcType="INTEGER" />
     <result column="specialist_id" property="specialistId" jdbcType="INTEGER" />
     <result column="article_id" property="articleId" jdbcType="INTEGER" />
-    <result column="re-reply_id" property="reReplyId" jdbcType="INTEGER" />
+    <result column="re_reply_id" property="reReplyId" jdbcType="INTEGER" />
     <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
     <result column="content" property="content" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    article_reply_id, specialist_id, article_id, re-reply_id, reply_time, content
+    article_reply_id, specialist_id, article_id, re_reply_id, reply_time, content
   </sql>
   <insert id="insertSelective" parameterType="com.ecnu.relax.model.ArticleReply" useGeneratedKeys="true"  keyProperty="articleReplyId">
     insert into article_reply
@@ -25,7 +25,7 @@
         article_id,
       </if>
       <if test="reReplyId != null" >
-        re-reply_id,
+        re_reply_id,
       </if>
       <if test="replyTime != null" >
         reply_time,
@@ -65,7 +65,7 @@
         article_id = #{articleId,jdbcType=INTEGER},
       </if>
       <if test="reReplyId != null" >
-        re-reply_id = #{reReplyId,jdbcType=INTEGER},
+        re_reply_id = #{reReplyId,jdbcType=INTEGER},
       </if>
       <if test="replyTime != null" >
         reply_time = #{replyTime,jdbcType=TIMESTAMP},

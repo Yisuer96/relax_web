@@ -5,12 +5,12 @@
     <id column="post_reply_id" property="postReplyId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="post_id" property="postId" jdbcType="INTEGER" />
-    <result column="re-reply_id" property="reReplyId" jdbcType="INTEGER" />
+    <result column="re_reply_id" property="reReplyId" jdbcType="INTEGER" />
     <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
     <result column="content" property="content" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    post_reply_id, user_id, post_id, re-reply_id, reply_time, content
+    post_reply_id, user_id, post_id, re_reply_id, reply_time, content
   </sql>
   <insert id="insertSelective" parameterType="com.ecnu.relax.model.PostReply" useGeneratedKeys="true"  keyProperty="postReplyId">
     insert into post_reply
@@ -25,7 +25,7 @@
         post_id,
       </if>
       <if test="reReplyId != null" >
-        re-reply_id,
+        re_reply_id,
       </if>
       <if test="replyTime != null" >
         reply_time,
@@ -65,7 +65,7 @@
         post_id = #{postId,jdbcType=INTEGER},
       </if>
       <if test="reReplyId != null" >
-        re-reply_id = #{reReplyId,jdbcType=INTEGER},
+        re_reply_id = #{reReplyId,jdbcType=INTEGER},
       </if>
       <if test="replyTime != null" >
         reply_time = #{replyTime,jdbcType=TIMESTAMP},

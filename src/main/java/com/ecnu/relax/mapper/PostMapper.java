@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 public interface PostMapper {
     @Delete({
         "delete from post",
@@ -34,6 +36,13 @@ public interface PostMapper {
     })
     @ResultMap("BaseResultMap")
     Post selectByPrimaryKey(Integer postId);
+
+    @Select({
+            "select *",
+            "from post",
+            "order by publish_time desc"
+    })
+    List<Post> selectAll();
 
     int updateByPrimaryKeySelective(Post record);
 
