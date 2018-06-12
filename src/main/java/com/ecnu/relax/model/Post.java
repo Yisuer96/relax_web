@@ -13,6 +13,16 @@ public class Post {
 
     private String content;
 
+    public Post() {
+    }
+
+    public Post(Integer userId, Date publishTime, String title, String content) {
+        this.userId = userId;
+        this.publishTime = publishTime;
+        this.title = title;
+        this.content = content;
+    }
+
     public Integer getPostId() {
         return postId;
     }
