@@ -52,6 +52,7 @@ public class OrderBean {
         pubishTime = order.getPublishTime().getTime();
         orderStatus = order.getOrderStatus();
         typeId = order.getTypeId();
+        sum = order.getSum();
         patientName = pN;
         specialistName = sN;
         specialistPhone = sP;
